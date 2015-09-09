@@ -8,9 +8,14 @@
 
 import UIKit
 
+// convention for delegate name is class name + Delegate
+@objc protocol FiltersViewControllerDelegate {
+    optional func filtersViewController(FiltersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
+}
+
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
     
-    var categories: [[String:String]] = []
+    var categories = [[String:String]]()
     var switchStates = [Int:Bool]()
 
     @IBOutlet weak var tableView: UITableView!
@@ -19,7 +24,21 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func onSearchButton(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+        var filters = [String: AnyObject]()
+        var selectedCategories = [String]()
+        for (row,  isSelected) in switchStates {
+            if isSelected {
+                selectedCategories.append(categories[row]["code"]!)
+            }
+        }
+        if selectedCategories.count > 0 {
+            filters["categories"] = selectedCategories
+        }
+        delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
+    
+    weak var delegate: FiltersViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
