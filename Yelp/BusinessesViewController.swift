@@ -11,6 +11,7 @@ import UIKit
 class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate {
 
     var businesses: [Business]!
+    var searchTerm = "Restaurants"
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -21,29 +22,27 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
         
-        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
-
-//        Business.searchWithTerm("Thai", completion: { (businesses: [Business]!, error: NSError!) -> Void in
-//            self.businesses = businesses
-//            
-//            for business in businesses {
-//                println(business.name!)
-//                println(business.address!)
-//            }
-//        })
         
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tableView.reloadData()
-        }
+        search()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func search() {
+        Business.searchWithTerm(searchTerm, sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+            self.businesses = businesses
+            self.tableView.reloadData()
+        }
+    }
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchTerm = searchBar.text
+        search()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
