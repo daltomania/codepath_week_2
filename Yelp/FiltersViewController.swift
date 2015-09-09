@@ -18,6 +18,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categories = [[String:String]]()
     var switchStates = [Int:Bool]()
 
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func onCancelButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -71,13 +72,18 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-
-        cell.switchLabel.text = categories[indexPath.row]["name"]
-        cell.delegate = self
-        cell.onSwitch.on = switchStates[indexPath.row] ?? false
-    
-        return cell
+        var cellType: String
+        
+        if (indexPath.section == 0) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.switchLabel.text = categories[indexPath.row]["name"]
+            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            cell.delegate = self
+            return cell
+        }
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
