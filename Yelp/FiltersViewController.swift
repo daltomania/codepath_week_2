@@ -50,9 +50,24 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 4 // hard code this for now like a chump
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        switch section {
+        case 0:
+            return 1 // deal on/off
+        case 1:
+            return 5 // distance
+        case 2:
+            return 3 // sort type
+        case 3:
+            return categories.count // categories
+        default:
+            return 0 // wtf
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -241,7 +256,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             ["name" : "Wraps", "code": "wraps"],
             ["name" : "Yugoslav", "code": "yugoslav"]]
     }
-
+    
     /*
     // MARK: - Navigation
 
