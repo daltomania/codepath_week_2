@@ -8,10 +8,17 @@
 
 import UIKit
 
+@objc protocol SwitchCellDelegate {
+    optional func switchCell(SwitchCell: SwitchCell,
+        didChangeValue value: Bool)
+}
+
 class SwitchCell: UITableViewCell {
 
     @IBOutlet weak var switchLabel: UILabel!
     @IBOutlet weak var onSwitch: UISwitch!
+    
+    weak var delegate: SwitchCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +31,7 @@ class SwitchCell: UITableViewCell {
     }
     
     func switchValueChanged() {
-        println("swtic asdf adflk;jasf")
+        delegate?.switchCell?(self, didChangeValue: onSwitch.on)
     }
 
 }

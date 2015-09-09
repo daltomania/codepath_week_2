@@ -8,9 +8,10 @@
 
 import UIKit
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
     
     var categories: [[String:String]] = []
+    var switchStates = [Int:Bool]()
 
     @IBOutlet weak var tableView: UITableView!
     @IBAction func onCancelButton(sender: AnyObject) {
@@ -39,7 +40,15 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
 
         cell.switchLabel.text = categories[indexPath.row]["name"]
+        cell.delegate = self
+        cell.onSwitch.on = switchStates[indexPath.row] ?? false
+    
         return cell
+    }
+    
+    func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
+        let indexPath = tableView.indexPathForCell(switchCell)!
+        switchStates[indexPath.row] = value
     }
     
     func yelpCategories() -> [[String: String]] {
