@@ -16,7 +16,9 @@ import UIKit
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,
     SwitchCellDelegate, DealCellDelegate {
     var categories = [[String:String]]()
-    var switchStates = [Int:Bool]()
+    var categorySwitchStates = [Int:Bool]()
+    var dealSwitchStates = [Int:Bool]()
+    var filters = [String: AnyObject]()
     
     let HeaderViewIdentifier = "HeaderView"
 
@@ -28,9 +30,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func onSearchButton(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
-        var filters = [String: AnyObject]()
         var selectedCategories = [String]()
-        for (row,  isSelected) in switchStates {
+        for (row,  isSelected) in categorySwitchStates {
             if isSelected {
                 selectedCategories.append(categories[row]["code"]!)
             }
@@ -38,6 +39,17 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         if selectedCategories.count > 0 {
             filters["categories"] = selectedCategories
         }
+        
+        var selectedDeals = [Bool]()
+        for (row,  isSelected) in dealSwitchStates {
+            if isSelected {
+                selectedDeals.append(dealSwitchStates[row]!)
+            }
+        }
+        if selectedDeals.count > 0 {
+            filters["deals"] = selectedDeals
+        }
+        
         delegate?.filtersViewController?(self, didUpdateFilters: filters)
     }
     
@@ -63,7 +75,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1 // deal on/off
+            return 1 // deals on/off
         case 1:
             return 5 // distance
         case 2:
@@ -80,12 +92,13 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
+            cell.onSwitch.on = dealSwitchStates[indexPath.row] ?? false
             cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
             cell.switchLabel.text = categories[indexPath.row]["name"]
-            cell.onSwitch.on = switchStates[indexPath.row] ?? false
+            cell.onSwitch.on = categorySwitchStates[indexPath.row] ?? false
             cell.delegate = self
             return cell
         }
@@ -109,12 +122,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
-        println("yo")
-        switchStates[indexPath.row] = value
+        categorySwitchStates[indexPath.row] = value
     }
     
     func dealCell(dealCell: DealCell, didChangeValue value: Bool) {
-        println("ba")
+        let indexPath = tableView.indexPathForCell(dealCell)!
+        dealSwitchStates[indexPath.row] = value
     }
     
     func yelpCategories() -> [[String: String]] {

@@ -12,6 +12,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
 
     var businesses: [Business]!
     var searchTerm = "Restaurants"
+    var deals = false
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -73,9 +74,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func filtersViewController(filtersViewController: FiltersViewController, didUpdateFilters filters: [String : AnyObject]) {
-        var categories = filters["categories"] as? [String]
+        let categories = filters["categories"] as? [String]
+        let deals = filters["deals"]?[0] as? Bool
         
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: nil) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: deals) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
