@@ -8,17 +8,26 @@
 
 import UIKit
 
-class DealCell: UITableViewCell {
+@objc protocol DealCellDelegate {
+    optional func dealCell(DealCell: DealCell, didChangeValue value: Bool)
+}
 
+class DealCell: UITableViewCell {
+    
+    weak var delegate: DealCellDelegate?
+
+    @IBOutlet weak var onSwitch: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        onSwitch.addTarget(self, action: "switchValueChanged", forControlEvents: UIControlEvents.ValueChanged)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-
+    
+    func switchValueChanged() {
+        delegate?.dealCell?(self, didChangeValue: onSwitch.on)
+    }
+    
 }

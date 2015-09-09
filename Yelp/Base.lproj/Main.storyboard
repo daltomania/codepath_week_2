@@ -201,6 +201,9 @@
                                                 <constraint firstAttribute="centerY" secondItem="tm1-F5-XHD" secondAttribute="centerY" id="rLF-Vw-DoT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="onSwitch" destination="tm1-F5-XHD" id="LS8-BA-hXk"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

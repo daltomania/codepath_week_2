@@ -13,7 +13,8 @@ import UIKit
     optional func filtersViewController(FiltersViewController: FiltersViewController, didUpdateFilters filters: [String:AnyObject])
 }
 
-class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
+class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,
+    SwitchCellDelegate, DealCellDelegate {
     var categories = [[String:String]]()
     var switchStates = [Int:Bool]()
     
@@ -79,6 +80,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
+            cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
@@ -107,7 +109,12 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
+        println("yo")
         switchStates[indexPath.row] = value
+    }
+    
+    func dealCell(dealCell: DealCell, didChangeValue value: Bool) {
+        println("ba")
     }
     
     func yelpCategories() -> [[String: String]] {
