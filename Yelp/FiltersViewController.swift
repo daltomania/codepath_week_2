@@ -14,9 +14,10 @@ import UIKit
 }
 
 class FiltersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate {
-    
     var categories = [[String:String]]()
     var switchStates = [Int:Bool]()
+    
+    let HeaderViewIdentifier = "HeaderView"
 
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -46,6 +47,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,6 +87,22 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.delegate = self
             return cell
         }
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewIdentifier) as! UITableViewHeaderFooterView
+
+        if (section == 0) {
+            header.textLabel.text = "Hot Dealz"
+        } else if (section == 1) {
+            header.textLabel.text = "Distance"
+        } else if (section == 2) {
+            header.textLabel.text = "Sort By"
+        } else if (section == 3) {
+            header.textLabel.text = "Categories"
+        }
+        
+        return header
     }
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {

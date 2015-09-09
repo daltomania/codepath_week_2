@@ -17,6 +17,7 @@
 		22AAAA991AEA0A9700A544AF /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA981AEA0A9700A544AF /* Business.swift */; };
 		22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */; };
 		9D11B52D1B9592CF00EAFC1B /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D11B52C1B9592CF00EAFC1B /* BusinessCell.swift */; };
+		9D1790031BA0C7450053463F /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1790021BA0C7450053463F /* HeaderView.swift */; };
 		9D55F0C31B9FFD9900AB4A37 /* DealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D55F0C21B9FFD9900AB4A37 /* DealCell.swift */; };
 		9DD0FA491B9FC11E00A8E88D /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0FA481B9FC11E00A8E88D /* SwitchCell.swift */; };
 		9DD0FA4B1B9FC30400A8E88D /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD0FA4A1B9FC30400A8E88D /* FiltersViewController.swift */; };
@@ -48,6 +49,7 @@
 		22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessesViewController.swift; sourceTree = "<group>"; };
 		97D8B2E3FFD1AF4F4A707E47 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		9D11B52C1B9592CF00EAFC1B /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
+		9D1790021BA0C7450053463F /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		9D55F0C21B9FFD9900AB4A37 /* DealCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealCell.swift; sourceTree = "<group>"; };
 		9DD0FA481B9FC11E00A8E88D /* SwitchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		9DD0FA4A1B9FC30400A8E88D /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				9D11B52C1B9592CF00EAFC1B /* BusinessCell.swift */,
 				9DD0FA481B9FC11E00A8E88D /* SwitchCell.swift */,
 				9D55F0C21B9FFD9900AB4A37 /* DealCell.swift */,
+				9D1790021BA0C7450053463F /* HeaderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D11B52D1B9592CF00EAFC1B /* BusinessCell.swift in Sources */,
+				9D1790031BA0C7450053463F /* HeaderView.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				9DD0FA4B1B9FC30400A8E88D /* FiltersViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
