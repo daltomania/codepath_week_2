@@ -19,8 +19,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categorySwitchStates = [Int:Bool]()
     var dealSwitchStates = [Int:Bool]()
     var filters = [String: AnyObject]()
-    let distances = [10, 25, 50]
-    let sortTypes = ["Best Match", "Highest Rated", "Distance"]
+    let distances = [(10, true), (25, false), (50, false)]
+    let sortTypes = [("Best Match", true), ("Highest Rated", false), ("Distance", false)]
     
     let HeaderViewIdentifier = "HeaderView"
 
@@ -96,12 +96,16 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         } else if (indexPath.section == 1) {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.switchLabel.text = "\(distances[indexPath.row]) km"
+            let (distance, enabled) = distances[indexPath.row]
+            cell.switchLabel.text = "\(distance) km"
+            cell.onSwitch.on = enabled
             cell.delegate = self
             return cell
         } else if (indexPath.section == 2) {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
-            cell.switchLabel.text = sortTypes[indexPath.row]
+            let (sortType, enabled) = sortTypes[indexPath.row]
+            cell.switchLabel.text = sortType
+            cell.onSwitch.on = enabled
             cell.delegate = self
             return cell
         } else {
@@ -123,7 +127,11 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
-        categorySwitchStates[indexPath.row] = value
+        if (indexPath.section == 1) { // distance
+            
+        } else if (indexPath.section == 3) { // category
+            categorySwitchStates[indexPath.row] = value
+        }
     }
     
     func dealCell(dealCell: DealCell, didChangeValue value: Bool) {
