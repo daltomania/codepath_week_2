@@ -48,8 +48,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses!.count
+        if let businesses = businesses {
+            return businesses.count
         } else {
             return 0
         }
@@ -62,12 +62,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-        */
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let navigationController = segue.destinationViewController as! UINavigationController
         let filtersViewController = navigationController.topViewController as! FiltersViewController
@@ -78,7 +72,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let categories = filters["categories"] as? [String]
         let deals = filters["deals"]?[0] as? Bool
         
-        Business.searchWithTerm("Restaurants", sort: nil, categories: categories, deals: deals) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm(searchTerm, sort: nil, categories: categories, deals: deals) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }
