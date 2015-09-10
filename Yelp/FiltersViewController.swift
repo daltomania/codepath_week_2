@@ -20,6 +20,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var dealSwitchStates = [Int:Bool]()
     var filters = [String: AnyObject]()
     let distances = [10, 25, 50]
+    let sortTypes = ["Best Match", "Highest Rated", "Distance"]
     
     let HeaderViewIdentifier = "HeaderView"
 
@@ -79,7 +80,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case 1:
             return distances.count // distance
         case 2:
-            return 1 // sort type
+            return sortTypes.count // sort type
         case 3:
             return categories.count // categories
         default:
@@ -99,8 +100,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.delegate = self
             return cell
         } else if (indexPath.section == 2) {
-            let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
-            //cell.delegate = self
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.switchLabel.text = sortTypes[indexPath.row]
+            cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell

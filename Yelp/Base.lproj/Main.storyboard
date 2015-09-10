@@ -205,30 +205,6 @@
                                             <outlet property="onSwitch" destination="tm1-F5-XHD" id="LS8-BA-hXk"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortCell" id="NQs-T7-Glq" customClass="SortCell" customModule="Yelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NQs-T7-Glq" id="eQN-De-nEd">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="T89-1f-loz">
-                                                    <rect key="frame" x="15" y="21" width="290" height="29"/>
-                                                    <segments>
-                                                        <segment title="Best Match"/>
-                                                        <segment title="Distance"/>
-                                                        <segment title="HighestRated"/>
-                                                    </segments>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="T89-1f-loz" secondAttribute="centerX" id="hry-qI-cab"/>
-                                                <constraint firstAttribute="centerY" secondItem="T89-1f-loz" secondAttribute="centerY" id="lrb-tL-4cK"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="onSegChange" destination="T89-1f-loz" id="cwc-Ql-9pu"/>
-                                        </connections>
-                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
