@@ -21,7 +21,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let searchBar = UISearchBar()
         searchBar.delegate = self
         searchBar.sizeToFit()
-        searchBar.text = searchTerm
         navigationItem.titleView = searchBar
         
         tableView.dataSource = self
@@ -37,7 +36,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func search() {
-        Business.searchWithTerm(searchTerm, sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm(searchTerm, sort: .Distance, categories: ["pizza"], deals: deals) { (businesses: [Business]!, error: NSError!) -> Void in
             self.businesses = businesses
             self.tableView.reloadData()
         }

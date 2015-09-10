@@ -19,8 +19,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categorySwitchStates = [Int:Bool]()
     var dealSwitchStates = [Int:Bool]()
     var filters = [String: AnyObject]()
-    let distances = [(10, true), (25, false), (50, false)]
-    let sortTypes = [("Best Match", true), ("Highest Rated", false), ("Distance", false)]
+    var distances = [(10, true), (25, false), (50, false)]
+    var sortTypes = [("Best Match", true), ("Highest Rated", false), ("Distance", false)]
     
     let HeaderViewIdentifier = "HeaderView"
 
@@ -128,7 +128,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     func switchCell(switchCell: SwitchCell, didChangeValue value: Bool) {
         let indexPath = tableView.indexPathForCell(switchCell)!
         if (indexPath.section == 1) { // distance
+        } else if (indexPath.section == 2) { // sort by
             
+            //sortTypes[indexPath.row]
         } else if (indexPath.section == 3) { // category
             categorySwitchStates[indexPath.row] = value
         }
