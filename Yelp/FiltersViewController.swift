@@ -19,6 +19,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     var categorySwitchStates = [Int:Bool]()
     var dealSwitchStates = [Int:Bool]()
     var filters = [String: AnyObject]()
+    let distances = [10, 25, 50]
     
     let HeaderViewIdentifier = "HeaderView"
 
@@ -60,7 +61,6 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         categories = yelpCategories()
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.registerClass(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
     }
 
@@ -69,7 +69,7 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4 // hard code this for now like a chump
+        return 4 // ugh
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,9 +77,9 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
         case 0:
             return 1 // deals on/off
         case 1:
-            return 5 // distance
+            return distances.count // distance
         case 2:
-            return 3 // sort type
+            return 1 // sort type
         case 3:
             return categories.count // categories
         default:
@@ -88,12 +88,19 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cellType: String
-        
         if (indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("DealCell", forIndexPath: indexPath) as! DealCell
             cell.onSwitch.on = dealSwitchStates[indexPath.row] ?? false
             cell.delegate = self
+            return cell
+        } else if (indexPath.section == 1) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
+            cell.switchLabel.text = "\(distances[indexPath.row]) km"
+            cell.delegate = self
+            return cell
+        } else if (indexPath.section == 2) {
+            let cell = tableView.dequeueReusableCellWithIdentifier("SortCell", forIndexPath: indexPath) as! SortCell
+            //cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("SwitchCell", forIndexPath: indexPath) as! SwitchCell
@@ -106,16 +113,8 @@ class FiltersViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewIdentifier) as! UITableViewHeaderFooterView
-
-        if (section == 0) {
-            header.textLabel.text = "Hot Dealz"
-        } else if (section == 1) {
-            header.textLabel.text = "Distance"
-        } else if (section == 2) {
-            header.textLabel.text = "Sort By"
-        } else if (section == 3) {
-            header.textLabel.text = "Categories"
-        }
+        let headerTitles = ["Hot Dealz", "Distance", "Sort By", "Categories"]
+        header.textLabel.text = headerTitles[section]
         
         return header
     }
